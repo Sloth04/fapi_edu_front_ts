@@ -1,0 +1,33 @@
+import {useEffect, useState} from "react";
+import {IBook} from "../models";
+import axios, {AxiosError} from "axios";
+
+export function useBooks() {
+    const [books, setBooks] = useState<IBook[]>([])
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
+
+    function addBook(book: IBook) {
+        setBooks(prev => [...prev, book])
+    }
+
+    async function fetchBooks() {
+        try {
+            setError('')
+            setLoading(true)
+            const response = await axios.get<IBook[]>('http://localhost:8080/books/?skip=0&limit=5')
+            setBooks(response.data)
+            setLoading(false)
+        } catch (e: unknown) {
+            const error = e as AxiosError
+            setLoading(false)
+            setError(error.message)
+        }
+    }
+
+    useEffect(() => {
+        fetchBooks()
+    }, [])
+
+    return {books, error, loading, addBook}
+}
