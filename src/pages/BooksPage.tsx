@@ -8,7 +8,7 @@ import {Book} from "../components/Book";
 import {Modal} from "../components/Modal";
 import {AddBook} from "../components/AddBook";
 
-export  function BooksPage() {
+export function BooksPage() {
     const {loading, error, books} = useBooks()
     const {modal, open: openModal, close: closeModal} = useContext(ModalContext)
 
