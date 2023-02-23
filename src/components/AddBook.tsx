@@ -9,7 +9,7 @@ const bookData: IBook = {
     publish_date: "",
     rating: 0,
     title: "",
-    writer_id: 0,
+    writer: 0,
     book_file: "",
     cover_file: ""
 }

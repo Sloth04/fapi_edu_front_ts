@@ -11,12 +11,13 @@ export function useBooks() {
         setBooks(prev => [...prev, book])
     }
 
-    async function fetchBooks() {
+    async function fetchBooks(skip: number = 0, limit: number = 9) {
         try {
             setError('')
             setLoading(true)
-            const response = await axios.get<IBook[]>('http://localhost:8080/books/?skip=0&limit=5')
-            setBooks(response.data)
+            const response = await axios.get<IBook[]>(`http://localhost:8080/books/?skip=${skip}&limit=${limit}`)
+            setBooks([...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data])
+            // ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data
             setLoading(false)
         } catch (e: unknown) {
             const error = e as AxiosError

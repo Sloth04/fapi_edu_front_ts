@@ -1,7 +1,7 @@
 export interface IBook {
     id?: number
     title: string
-    writer_id: number
+    writer: number
     book_file: string
     cover_file: string
     description: string
