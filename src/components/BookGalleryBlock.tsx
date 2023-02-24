@@ -4,6 +4,8 @@ import {useBooks} from "../hooks/books";
 import {Loader} from "./Loader";
 import {ErrorMessage} from "./ErrorMessage";
 import BooksPagination from "./BooksPagination";
+import SearchCard from "./SearchCard";
+import SortDropDownGroup from "./SortDropDownGroup";
 
 interface Props {
     width?: string;
@@ -12,6 +14,8 @@ interface Props {
     fontWeight?: string;
     fontSize?: string;
     maxWidth?: string;
+    paddingLeft?: string;
+    paddingRight?: string;
 }
 
 const CustomBlock = styled.main<Props>`
@@ -27,8 +31,9 @@ const CustomColumn = styled.div<Props>`
   flex-direction: column;
   display: flex;
   align-items: flex-start;
-  padding-left: 8%;
-  padding-right: 5%;
+  padding-left: ${props => props.paddingLeft ? props.paddingLeft : "8%"};
+  padding-right: ${props => props.paddingRight ? props.paddingRight : "8%"};
+  position: relative;
 `
 
 export const CustomText = styled.div<Props>`
@@ -39,26 +44,27 @@ export const CustomText = styled.div<Props>`
   line-height: ${props => props.fontSize ? props.fontSize : "22px"};
   color: #0F0701;
   max-width: ${props => props.maxWidth ? props.maxWidth : "none"};
-  margin-bottom: 4%;
+  margin-bottom: 20px;
 `
 
 const BookGalleryBlock = () => {
     const {loading, error, books} = useBooks()
     return (
         <CustomBlock>
-            <CustomColumn width={'80%'}>
-                <CustomText fontFamily={'NunitoBold, sans-serif'} fontSize={'32px'} fontWeight={'600'}>
+            <CustomColumn width={'57%'} paddingRight={"0%"}>
+                <CustomText fontFamily={'NunitoBold, sans-serif'} fontSize={'32px'} fontWeight={'600'}
+                            style={{padding: "15px"}}>
                     Усі книги
                 </CustomText>
-                <CustomText>
-                    Відсортувати: по даті публікації
+                <CustomText style={{alignItems: "center", flexDirection: "row", display: "flex", paddingLeft: "15px"}}>
+                    Відсортувати: <SortDropDownGroup/>
                 </CustomText>
                 {loading && <Loader/>}
                 {error && <ErrorMessage error={error}/>}
                 <BooksPagination data={books}></BooksPagination>
             </CustomColumn>
-            <CustomColumn width={'20%'}>
-
+            <CustomColumn width={'37%'} paddingLeft={"10%"}>
+                <SearchCard/>
             </CustomColumn>
         </CustomBlock>
     );

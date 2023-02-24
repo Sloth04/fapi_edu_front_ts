@@ -20,12 +20,14 @@ const CustomBookCard = styled.div`
   display: flex;
   text-align: left;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 
 `
 const CustomBookCover = styled(Image)`
   max-width: 240px;
   max-height: 266px;
+`
+const CustomTextBlock = styled.div`
 `
 
 export const BookCardCustomText = styled.div<BookCardCustomTextProps>`
@@ -36,7 +38,8 @@ export const BookCardCustomText = styled.div<BookCardCustomTextProps>`
   line-height: ${props => props.fontSize ? props.fontSize : "22px"};
   color: #0F0701;
   max-width: ${props => props.maxWidth ? props.maxWidth : "none"};
-  margin-bottom: 2%;
+  margin: 10px;
+
 `
 
 export function BookCard({book}: BookProps) {
@@ -44,10 +47,12 @@ export function BookCard({book}: BookProps) {
     return (
         <CustomBookCard>
             <CustomBookCover src={book.cover_file} alt={book.title}/>
-            <BookCardCustomText fontFamily={'InterRegular'} fontSize={'20px'}
-                                fontWeight={'400'} maxWidth={"240px"}>{book.title}</BookCardCustomText>
-            <BookCardCustomText fontFamily={'NunitoRegular'} fontSize={'18px'}
-                                fontWeight={'400'} maxWidth={"240px"}>{book.writer}</BookCardCustomText>
+            <CustomTextBlock>
+                <BookCardCustomText fontFamily={'InterRegular'} fontSize={'20px'}
+                                    fontWeight={'400'} maxWidth={"240px"}>{book.title}</BookCardCustomText>
+                <BookCardCustomText fontFamily={'NunitoRegular'} fontSize={'18px'}
+                                    fontWeight={'400'} maxWidth={"240px"}>{book.writer}</BookCardCustomText>
+            </CustomTextBlock>
         </CustomBookCard>
     )
 }

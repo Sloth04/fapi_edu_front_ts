@@ -16,7 +16,7 @@ export function useBooks() {
             setError('')
             setLoading(true)
             const response = await axios.get<IBook[]>(`http://localhost:8080/books/?skip=${skip}&limit=${limit}`)
-            setBooks([...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data])
+            setBooks(response.data)
             // ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data, ...response.data
             setLoading(false)
         } catch (e: unknown) {
